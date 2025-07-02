@@ -1,0 +1,31 @@
+{
+  "name": "moviepicker-telegram-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azat-nasyrov-dev/moviepicker-telegram-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azat-nasyrov-dev/moviepicker-telegram-bot/issues"
+  },
+  "homepage": "https://github.com/azat-nasyrov-dev/moviepicker-telegram-bot#readme",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "grammy": "^1.36.3"
+  }
+}
