@@ -1,0 +1,26 @@
+# fly.toml app configuration file generated for moviepicker-telegram-bot on 2025-05-05T17:31:30Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'moviepicker-telegram-bot'
+primary_region = 'fra'
+
+[build]
+
+[http_service]
+internal_port = 3000
+force_https = true
+auto_stop_machines = 'stop'
+auto_start_machines = true
+min_machines_running = 0
+processes = ['app']
+
+[scale]
+count = 1
+
+[[vm]]
+size = 'shared-cpu-1x'
+memory = '256MB'
+cpu_kind = 'shared'
+cpus = 1
