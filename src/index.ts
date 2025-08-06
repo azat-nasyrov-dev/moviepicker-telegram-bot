@@ -1,4 +1,10 @@
-import { Bot, InlineKeyboard, InputMediaBuilder } from "grammy";
+import {
+  Bot,
+  GrammyError,
+  HttpError,
+  InlineKeyboard,
+  InputMediaBuilder,
+} from "grammy";
 import "dotenv/config";
 import { getRandom, search } from "./services/moviesearch";
 import { getRecommendations } from "./services/openai";
@@ -11,6 +17,8 @@ bot.on("message", async (ctx) => {
     ctx.reply("Please, send a text request");
     return;
   }
+
+  ctx.replyWithChatAction("typing");
 
   const recommendations = await getRecommendations(ctx.message.text);
 
@@ -36,19 +44,23 @@ bot.on("message", async (ctx) => {
       reply_markup: button,
     });
   }
+});
 
-  // const medias = entities
-  //   .filter((entity) => {
-  //     return !!entity?.poster?.url;
-  //   })
-  //   .map((entity) => {
-  //     return InputMediaBuilder.photo(entity.poster.url, {
-  //       caption: `${entity.name} \n${entity.shortDescription}`,
-  //       // etc
-  //     });
-  //   });
+bot.catch((err) => {
+  const ctx = err.ctx;
+  console.error(`Error while handling update ${ctx.update.update_id}:`);
+  const e = err.error;
+  if (e instanceof GrammyError) {
+    console.error("Error in request:", e.description);
+  } else if (e instanceof HttpError) {
+    console.error("Could not contact Telegram:", e);
+  } else {
+    console.error("Unknown error:", e);
+  }
 
-  // ctx.replyWithMediaGroup(medias);
+  ctx.reply(
+    "Unfortunately, we were unable to process your request, please try again.",
+  );
 });
 
 bot.start();
