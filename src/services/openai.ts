@@ -37,7 +37,5 @@ export async function getRecommendations(query: string) {
 
   const recommendations = completion.choices[0].message.parsed;
 
-  console.log("openai response:", recommendations);
-
   return recommendations;
 }
